@@ -13,7 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -29,15 +29,16 @@ class BlogServiceTest {
 
     @InjectMocks
     private BlogServiceImpl blogService;
-    private Blog blog,blog1;
+    private Blog blog;
     private List<Blog> blogList;
-    private Optional optional;
+    private Optional<Blog> optional;
 
-    @BeforeEach
+    @SuppressWarnings("deprecation")
+	@BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         blog = new Blog(1, "SampleBlog", "Imneet", "SampleBlogforTesting");
-        blog1 = new Blog(2, "Blog 1", "John", "Sample Blog 1 for Testing");
+        new Blog(2, "Blog 1", "John", "Sample Blog 1 for Testing");
         optional = Optional.of(blog);
     }
 
@@ -74,7 +75,7 @@ class BlogServiceTest {
     }
 
     @Test
-    public void givenBlogIdThenShouldReturnRespectiveBlog() {
+    public void givenBlogIdThenShouldReturnRespectiveBlog() throws Exception {
         when(blogRepository.findById(anyInt())).thenReturn(Optional.of(blog));
         Blog retrievedBlog = blogService.getBlogById(blog.getBlogId());
         verify(blogRepository, times(1)).findById(anyInt());
@@ -82,7 +83,7 @@ class BlogServiceTest {
     }
 
     @Test
-    void givenBlogIdToDeleteThenShouldReturnDeletedBlog() {
+    void givenBlogIdToDeleteThenShouldReturnDeletedBlog() throws Exception {
         when(blogRepository.findById(blog.getBlogId())).thenReturn(optional);
         Blog deletedBlog = blogService.deleteBlog(1);
         assertEquals(1, deletedBlog.getBlogId());
@@ -92,14 +93,14 @@ class BlogServiceTest {
     }
 
     @Test
-    void givenBlogIdToDeleteThenShouldNotReturnDeletedBlog() {
+    void givenBlogIdToDeleteThenShouldNotReturnDeletedBlog() throws Exception {
         when(blogRepository.findById(blog.getBlogId())).thenReturn(Optional.empty());
         Blog deletedBlog = blogService.deleteBlog(1);
         verify(blogRepository, times(1)).findById(blog.getBlogId());
     }
 
     @Test
-    public void givenBlogToUpdateThenShouldReturnUpdatedBlog() {
+    public void givenBlogToUpdateThenShouldReturnUpdatedBlog() throws Exception {
         when(blogRepository.findById(blog.getBlogId())).thenReturn(optional);
         when(blogRepository.save(blog)).thenReturn(blog);
         blog.setBlogContent("SampleBlogforTesting");
@@ -110,7 +111,7 @@ class BlogServiceTest {
     }
 
     @Test
-    public void givenBlogToUpdateThenShouldNotReturnUpdatedBlog() {
+    public void givenBlogToUpdateThenShouldNotReturnUpdatedBlog() throws Exception {
         when(blogRepository.findById(blog.getBlogId())).thenReturn(Optional.empty());
         Blog blog1 = blogService.updateBlog(blog);
         assertNull(blog1);

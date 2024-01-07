@@ -17,16 +17,19 @@ public interface BlogService {
 
      /**
       * AbstractMethod to get blog by id
+     * @throws Exception 
       */
-     Blog getBlogById(int id);
+     Blog getBlogById(int id) throws Exception;
 
      /**
       * AbstractMethod to delete blog by id
+     * @throws Exception 
       */
-     Blog deleteBlog(int id);
+     Blog deleteBlog(int id) throws Exception;
 
      /**
       * AbstractMethod to update a blog
+     * @throws Exception 
       */
-     Blog updateBlog(Blog blog);
+     Blog updateBlog(Blog blog) throws Exception;
 }

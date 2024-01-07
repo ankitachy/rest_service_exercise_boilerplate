@@ -1,30 +1,22 @@
 package com.stackroute.domain;
 
 import jakarta.persistence.Entity;
+
 import jakarta.persistence.Id;
-/**
- * define an entity
- */
+
 @Entity
 public class Blog {
-    /**
-     * @Id annotation makes id variable as Primary key
-     */
+    
     @Id
+   
     private int blogId;
     private String blogTitle;
     private String authorName;
     private String blogContent;
 
-    /**
-     * default constructor
-     */
     public Blog() {
     }
 
-    /**
-     * parameterized constructor
-     */
     public Blog(int blogId, String blogTitle, String authorName, String blogContent) {
         this.blogId = blogId;
         this.blogTitle = blogTitle;
@@ -32,9 +24,7 @@ public class Blog {
         this.blogContent = blogContent;
     }
 
-    /**
-     * getters and setters
-     */
+   
     public int getBlogId() {
         return blogId;
     }
